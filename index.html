@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Cyber Companion Bot | Documentation</title>
+  <!-- Font Awesome 6 (Free Icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Inter + Fira Code -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 10% 20%, #0a0a1a, #03050b);
+      font-family: 'Inter', sans-serif;
+      color: #eef4ff;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1a1a2f;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #ff7e2e;
+      border-radius: 10px;
+    }
+
+    /* ORANGE, BLUE, PURPLE accents */
+    :root {
+      --orange: #f97316;
+      --orange-glow: #ff8c42;
+      --blue: #3b82f6;
+      --blue-deep: #2563eb;
+      --purple: #a855f7;
+      --purple-dark: #7c3aed;
+      --bg-card: rgba(18, 22, 40, 0.75);
+      --border-glow: rgba(249, 115, 22, 0.3);
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+    }
+
+    /* Header / Nav */
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0 1.5rem;
+      border-bottom: 1px solid rgba(249, 115, 22, 0.3);
+      margin-bottom: 2rem;
+    }
+    .logo-area h1 {
+      font-size: 1.9rem;
+      background: linear-gradient(135deg, #f97316, #a855f7, #3b82f6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      display: inline-block;
+    }
+    .logo-area p {
+      font-size: 0.85rem;
+      color: #b9c3e6;
+      margin-top: 0.2rem;
+    }
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+    .social-links a {
+      color: #cbd5f0;
+      font-size: 1.4rem;
+      transition: all 0.2s ease;
+    }
+    .social-links a:hover {
+      transform: translateY(-3px);
+    }
+    .social-links a:nth-child(1):hover { color: #f97316; } /* github */
+    .social-links a:nth-child(2):hover { color: #1DA1F2; } /* x */
+    .social-links a:nth-child(3):hover { color: #0A66C2; } /* linkedin */
+    .social-links a:nth-child(4):hover { color: #26A5E4; } /* telegram */
+    .social-links a:nth-child(5):hover { color: #4A154B; } /* slack */
+    .social-links a:nth-child(6):hover { color: #1877F2; } /* facebook */
+    .social-links a:nth-child(7):hover { color: #ff0050; } /* pentest (custom redish) */
+
+    /* Hero / Bot description */
+    .hero-bot {
+      background: linear-gradient(145deg, rgba(37, 99, 235, 0.15), rgba(168, 85, 247, 0.1));
+      backdrop-filter: blur(8px);
+      border-radius: 2rem;
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      padding: 2rem 2rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4);
+    }
+    .bot-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+    .bot-header i {
+      font-size: 3rem;
+      background: linear-gradient(135deg, #f97316, #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .bot-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    .bot-desc {
+      font-size: 1.1rem;
+      max-width: 85%;
+      color: #e0e7ff;
+    }
+    .tool-badge {
+      display: inline-flex;
+      gap: 12px;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .badge {
+      background: rgba(59,130,246,0.2);
+      border-left: 3px solid #f97316;
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #facc15;
+    }
+
+    /* two column layout: Documentation + Install steps */
+    .docs-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin: 2rem 0 3rem;
+    }
+    .doc-card {
+      flex: 1.2;
+      background: var(--bg-card);
+      backdrop-filter: blur(8px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(168,85,247,0.3);
+      padding: 1.6rem;
+      transition: 0.2s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .install-card {
+      flex: 1;
+      background: var(--bg-card);
+      backdrop-filter: blur(8px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(59,130,246,0.4);
+      padding: 1.6rem;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-left: 4px solid #f97316;
+      padding-left: 1rem;
+    }
+    .section-title i {
+      color: #a855f7;
+    }
+    .step-list {
+      list-style: none;
+    }
+    .step-list li {
+      margin-bottom: 1.4rem;
+      border-bottom: 1px dashed rgba(59,130,246,0.3);
+      padding-bottom: 0.8rem;
+    }
+    .step-number {
+      display: inline-block;
+      background: #f97316;
+      color: #0a0a1a;
+      font-weight: bold;
+      width: 28px;
+      height: 28px;
+      text-align: center;
+      line-height: 28px;
+      border-radius: 30px;
+      margin-right: 12px;
+      font-size: 0.85rem;
+    }
+    code {
+      background: #0f1222;
+      padding: 0.2rem 0.5rem;
+      border-radius: 8px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: #facc15;
+      border: 1px solid #2d3748;
+    }
+    pre {
+      background: #0b0e1a;
+      padding: 0.8rem;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin: 0.5rem 0;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+    }
+    .doc-text {
+      margin-bottom: 1rem;
+    }
+    .doc-text p {
+      margin: 0.8rem 0;
+    }
+    .highlight {
+      color: #f97316;
+      font-weight: 500;
+    }
+    .github-btn {
+      background: linear-gradient(95deg, #f97316, #a855f7);
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 0.8rem;
+      transition: 0.2s;
+    }
+    .github-btn a {
+      color: white;
+      text-decoration: none;
+    }
+    .github-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 12px rgba(249,115,22,0.5);
+    }
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(168,85,247,0.3);
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+    @media (max-width: 780px) {
+      .container {
+        padding: 1rem;
+      }
+      .hero-bot .bot-desc {
+        max-width: 100%;
+      }
+      .doc-card, .install-card {
+        flex: 1 1 100%;
+      }
+    }
+    button.copy-btn {
+      background: none;
+      border: 1px solid #3b82f6;
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-size: 0.7rem;
+      margin-left: 10px;
+      cursor: pointer;
+      color: #90cdf4;
+    }
+    button.copy-btn:hover {
+      background: #3b82f6;
+      color: white;
+    }
+    .inline-code {
+      background: #1e1f2c;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo-area">
+      <h1><i class="fas fa-robot"></i> Cyber Companion Bot</h1>
+      <p>Documentation • Security Tool • AI Defense Companion</p>
+    </div>
+    <div class="social-links">
+      <a href="https://github.com/Iankulani/Cyber-Companion-Bot-v1.0.0" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="#" target="_blank" aria-label="X (Twitter)"><i class="fab fa-twitter"></i></a>
+      <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" target="_blank" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+      <a href="#" target="_blank" aria-label="Slack"><i class="fab fa-slack"></i></a>
+      <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" target="_blank" aria-label="Pentest"><i class="fas fa-shield-haltered"></i></a>
+    </div>
+  </header>
+
+  <!-- BOT DESCRIPTION SECTION -->
+  <div class="hero-bot">
+    <div class="bot-header">
+      <i class="fas fa-microchip"></i>
+      <h2>🤖 Cyber Companion Bot</h2>
+    </div>
+    <div class="bot-desc">
+      <p><span class="highlight">Cyber Companion Bot</span> is an advanced autonomous AI bot built for offensive/defensive security workflows — real-time vulnerability scanning, intelligent log analysis, and automated pentesting scripts. It integrates seamlessly with <strong>GitHub Actions</strong>, <strong>Slack</strong> alerts, and provides Telegram notifications. The bot supports <strong>reconnaissance modules</strong>, <strong>exploit suggestion engines</strong>, and a modular CLI. Whether you're a red teamer or SOC analyst, Cyber Companion boosts your efficiency with AI-powered insights.</p>
+      <div class="tool-badge">
+        <span class="badge"><i class="fas fa-terminal"></i> AI-Driven Pentest</span>
+        <span class="badge"><i class="fas fa-shield-alt"></i> Real-time Defense</span>
+        <span class="badge"><i class="fas fa-chart-line"></i> Log Analysis</span>
+        <span class="badge"><i class="fab fa-github"></i> GitHub Integration</span>
+      </div>
+      <div class="github-btn">
+        <i class="fab fa-github"></i> <a href="#">CyberCompanion/community</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCUMENTATION + INSTALLATION STEPS (Two column) -->
+  <div class="docs-grid">
+    <!-- Left side: Documentation core -->
+    <div class="doc-card">
+      <div class="section-title">
+        <i class="fas fa-book-open"></i>
+        <span>📘 Documentation & Core Features</span>
+      </div>
+      <div class="doc-text">
+        <p><i class="fas fa-check-circle" style="color:#f97316;"></i> <strong>Modular architecture:</strong> Write your own plugins in Python/JS.</p>
+        <p><i class="fas fa-bolt" style="color:#3b82f6;"></i> <strong>AI Threat Intel:</strong> uses local LLM for pattern recognition.</p>
+        <p><i class="fas fa-plug" style="color:#a855f7;"></i> <strong>Integrations:</strong> native webhooks for Slack, Discord, Telegram + X (Twitter) alerts.</p>
+        <p><i class="fas fa-database" style="color:#f97316;"></i> <strong>Pentest modules:</strong> Subdomain enumeration, port scanning, fuzzing, and automatic reporting.</p>
+        <p><i class="fab fa-github" style="color:#3b82f6;"></i> <strong>GitHub Action ready:</strong> Run scans on every commit or schedule.</p>
+        <pre>
+# Example: Run quick recon
+cyber-companion recon --target example.com --modules all
+        </pre>
+        <button class="copy-btn" data-copy="cyber-companion recon --target example.com --modules all"><i class="far fa-copy"></i> Copy</button>
+        <p style="margin-top: 1rem;">📌 Full API docs: <code>/docs/api</code> after installation. Configure <code>.env</code> with your API keys for Slack, Telegram, X. The bot also includes a web dashboard (port 8080) with live logs and orange/purple theme.</p>
+        <div class="github-btn" style="background: #2563eb40; border: none; margin-top: 8px;">
+          <i class="fab fa-readme"></i> <a href="#" style="color:#facc15;">Read Official Documentation →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right side: Step-by-Step Installation from GitHub -->
+    <div class="install-card">
+      <div class="section-title">
+        <i class="fas fa-download"></i>
+        <span>⚙️ Step-by-Step Installation</span>
+      </div>
+      <ul class="step-list">
+        <li><span class="step-number">1</span> <strong>Clone GitHub Repository</strong><br>
+          <pre><code>git clone https://github.com/Iankulani/Cyber-Companion-Bot-v1.0.0.git</code></pre>
+          <button class="copy-btn" data-copy="git clone https://github.com/Iankulani/Cyber-Companion-Bot-v1.0.0.git"><i class="far fa-copy"></i> Copy</button>
+        </li>
+        <li><span class="step-number">2</span> <strong>Navigate to project dir</strong><br>
+          <pre><code>cd cyber-bot</code></pre>
+          <button class="copy-btn" data-copy="cd Cyber-Companion-Bot-v1.0.0"><i class="far fa-copy"></i> Copy</button>
+        </li>
+        <li><span class="step-number">3</span> <strong>Set up Python virtual environment (recommended)</strong><br>
+          <pre><code>python3 -m venv venv
+source venv/bin/activate   # Linux/Mac
+venv\Scripts\activate      # Windows</code></pre>
+          <button class="copy-btn" data-copy="python3 -m venv venv && source venv/bin/activate"><i class="far fa-copy"></i> Copy</button>
+        </li>
+        <li><span class="step-number">4</span> <strong>Install dependencies</strong><br>
+          <pre><code>pip install -r requirements.txt</code></pre>
+          <button class="copy-btn" data-copy="pip install -r requirements.txt"><i class="far fa-copy"></i> Copy</button>
+        </li>
+        <li><span class="step-number">5</span> <strong>Configure environment variables</strong><br>
+          <pre><code>cp .env.example .env
+nano .env   # add tokens for Slack/Telegram/GitHub</code></pre>
+          <button class="copy-btn" data-copy="cp .env.example .env"><i class="far fa-copy"></i> Copy</button>
+        </li>
+        <li><span class="step-number">6</span> <strong>Run Cyber Companion Bot</strong><br>
+          <pre><code>python companion.py --start</code></pre>
+          <button class="copy-btn" data-copy="python Cyber-Companion-Bot-v1.0.0.py --start"><i class="far fa-copy"></i> Copy</button>
+          <small style="color:#a5b4fc;">→ Web UI accessible at <code>http://localhost:8080</code> </small>
+        </li>
+        <li><span class="step-number">7</span> <strong>Test your installation</strong><br>
+          <pre><code>cyber-companion --help</code></pre>
+          <button class="copy-btn" data-copy="cyber-companion --help"><i class="far fa-copy"></i> Copy</button>
+        </li>
+      </ul>
+      <div style="margin-top: 1rem; background: rgba(168,85,247,0.2); border-radius: 1rem; padding: 0.8rem;">
+        <i class="fas fa-exclamation-triangle" style="color:#f97316;"></i> <strong>Pentest Ready:</strong> Pre-integrated nuclei, nmap wrapper. For full pentest suite run <code>./install-pentest.sh</code> from repo.
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional rows: extra documentation + integration community -->
+  <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 1rem;">
+    <div style="flex:1; background: rgba(0,0,0,0.3); border-radius: 1rem; padding: 1.2rem; border-left: 3px solid #f97316;">
+      <i class="fab fa-github" style="font-size: 1.5rem; color:#f97316;"></i> <strong> GitHub Actions CI/CD</strong>
+      <p style="margin-top: 0.4rem;">Automate pentests using Cyber Companion in your pipelines. Check <code>.github/workflows/audit.yml</code> example inside the repo.</p>
+    </div>
+    <div style="flex:1; background: rgba(0,0,0,0.3); border-radius: 1rem; padding: 1.2rem; border-left: 3px solid #a855f7;">
+      <i class="fas fa-bug"></i> <strong> Pentest Module Library</strong>
+      <p>Includes: SQLi scanner, XSS fuzzer, CVE matcher, log4j detect, custom wordlist support. <i class="fab fa-telegram"></i> Get alerts on Telegram.</p>
+    </div>
+    <div style="flex:1; background: rgba(0,0,0,0.3); border-radius: 1rem; padding: 1.2rem; border-left: 3px solid #3b82f6;">
+      <i class="fas fa-comments"></i> <strong> Community & Support</strong>
+      <p>Join Slack / Telegram channels for quick help. We share latest zero‑day plugins and orange-themed dashboards.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER with note and connection reminder -->
+  <footer>
+    <p>© 2025 Cyber Companion — AI-driven security bot | <i class="fab fa-github"></i> <i class="fab fa-twitter"></i> <i class="fab fa-linkedin"></i> <i class="fab fa-telegram"></i> <i class="fab fa-slack"></i> <i class="fab fa-facebook"></i> <i class="fas fa-shield-haltered"></i></p>
+    <p style="margin-top: 0.5rem;">🎨 Theme powered by <span style="color:#f97316;">Orange</span> · <span style="color:#3b82f6;">Blue</span> · <span style="color:#a855f7;">Purple</span> | Complete documentation available on GitHub & Official Portal</p>
+  </footer>
+</div>
+
+<script>
+  // Copy functionality for all code snippets & buttons
+  document.querySelectorAll('.copy-btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const textToCopy = button.getAttribute('data-copy');
+      if (textToCopy) {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          // visual feedback
+          const originalHTML = button.innerHTML;
+          button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          setTimeout(() => {
+            button.innerHTML = originalHTML;
+          }, 1500);
+        }).catch(err => {
+          console.warn('Could not copy: ', err);
+        });
+      } else {
+        // fallback: try to grab from previous sibling pre code if any
+        const preElem = button.previousElementSibling;
+        if (preElem && preElem.tagName === 'PRE') {
+          const codeElem = preElem.querySelector('code');
+          if (codeElem) {
+            const codeText = codeElem.innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+              button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+              setTimeout(() => {
+                button.innerHTML = '<i class="far fa-copy"></i> Copy';
+              }, 1500);
+            });
+          }
+        }
+      }
+    });
+  });
+
+  // For demonstration: if any social link is clicked (since placeholder #), open a friendly alert (optional) 
+  // But we keep them as real links for external placeholders, but we'll add console info.
+  const socialAnchors = document.querySelectorAll('.social-links a');
+  socialAnchors.forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      // if href is "#" we show a tooltip info and open dummy (just for demo, but could be replaced)
+      if (anchor.getAttribute('href') === '#') {
+        e.preventDefault();
+        const platform = anchor.getAttribute('aria-label') || anchor.querySelector('i')?.className || 'social';
+        alert(`✨ Connect with Cyber Companion Bot on ${platform} (official channel link will be active in production).`);
+      }
+    });
+  });
+
+  // Repo link similar
+  const gitBtns = document.querySelectorAll('.github-btn a');
+  gitBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      if (btn.getAttribute('href') === '#') {
+        e.preventDefault();
+        alert('🌐 Official GitHub: https://github.com/Iankulani/Cyber-Companion-Bot-v1.0.0 \n(Full documentation & source code)');
+      }
+    });
+  });
+
+  // animate hover for copy (just extra)
+  console.log('Cyber Companion Documentation ready — Orange/Blue/Purple Theme, integrated with GitHub, X, LinkedIn, Telegram, Slack, FB, Pentest.');
+</script>
+
+<!-- style additional tweaks for buttons -->
+<style>
+  .copy-btn {
+    transition: all 0.2s;
+    background: #1e293b;
+    color: #facc15;
+    border: 1px solid #3b82f6;
+  }
+  .copy-btn:hover {
+    background: #f97316;
+    color: #0f0f1a;
+    border-color: #f97316;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .doc-card, .install-card {
+    transition: transform 0.2s;
+  }
+  .doc-card:hover, .install-card:hover {
+    transform: translateY(-3px);
+    border-color: #f97316;
+    box-shadow: 0 20px 30px -15px rgba(249,115,22,0.2);
+  }
+  .hero-bot {
+    background: linear-gradient(125deg, rgba(59,130,246,0.1), rgba(168,85,247,0.1));
+  }
+  .badge {
+    background: linear-gradient(145deg, #1a1f3a, #0f122a);
+  }
+  i, .fab, .fas {
+    pointer-events: none;
+  }
+  .social-links a i {
+    pointer-events: auto;
+  }
+</style>
+
+</body>
+</html>
